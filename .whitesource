@@ -1,3 +1,9 @@
 {
-  "settingsInheritedFrom": "rsoreq/whitesource-config@main"
+  "settingsInheritedFrom": "rsoreq/whitesource-config@main",
+  "scanSettings": {
+      "enableReachability": true
+  },
+  "checkRunSettings": {
+    "strictMode": "warning"
+  }
 }
