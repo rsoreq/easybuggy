@@ -28,12 +28,15 @@
          String password = req.getParameter("password");
          String loginQueryString = req.getParameter("loginquerystring");
 -        if (loginQueryString == null) {
-+        if (loginQueryString == null || loginQueryString.contains("://")) {
-             loginQueryString = "";
-         } else {
-             loginQueryString = "?" + loginQueryString;
+-            loginQueryString = "";
+-        } else {
+-            loginQueryString = "?" + loginQueryString;
++            if (loginQueryString == null || loginQueryString.contains("://")) {
++                loginQueryString = "";
++            } else {
++                loginQueryString = "?" + loginQueryString;
++            }
          }
-+        }
          
          HttpSession session = req.getSession(true);
          if (isAccountLocked(userid)) {
