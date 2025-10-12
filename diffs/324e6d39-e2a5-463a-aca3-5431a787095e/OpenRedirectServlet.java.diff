@@ -27,8 +27,7 @@
          String userid = req.getParameter("userid");
          String password = req.getParameter("password");
          String loginQueryString = req.getParameter("loginquerystring");
--        if (loginQueryString == null) {
-+        if (loginQueryString == null || loginQueryString.contains("://")) {
+         if (loginQueryString == null) {
              loginQueryString = "";
          } else {
              loginQueryString = "?" + loginQueryString;
@@ -61,6 +60,10 @@
              /* account lock count +1 */
              incrementLoginFailedCount(userid);
              
++            if (loginQueryString.contains("://")) {
++                res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid redirect URL");
++                return;
++            }
              session.setAttribute("authNMsg", getErrMsg("msg.authentication.fail", locale));
              res.sendRedirect("/openredirect/login" + loginQueryString);
          }
